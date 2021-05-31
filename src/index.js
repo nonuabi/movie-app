@@ -8,15 +8,24 @@ import combineReducers from "./reducers";
 
 //function logger(obj, next, action)
 
-const logger = function ({ dispatch, getState }) {
-  return function (next) {
-    return function (action) {
-      //middleware code
-      console.log("Action_type = ", action.type);
-      next(action);
-    };
+// const logger = function ({ dispatch, getState }) {
+//   return function (next) {
+//     return function (action) {
+//       //middleware code
+//       console.log("Action_type = ", action.type);
+//       next(action);
+//     };
+//   };
+// };
+
+const logger =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    //logger code
+    console.log("Action_type = ", action.type);
+    next(action);
   };
-};
 
 const store = createStore(combineReducers, applyMiddleware(logger));
 console.log("store :: ", store);
