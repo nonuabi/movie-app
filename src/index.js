@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -23,9 +23,9 @@ const logger =
   (next) =>
   (action) => {
     //logger code
-    if (typeof action !== "function") {
-      console.log("ACTION_TYPE", action.type);
-    }
+
+    console.log("ACTION", action);
+
     next(action);
   };
 // const thunk =
@@ -41,7 +41,26 @@ const logger =
 //   };
 
 const store = createStore(combineReducers, applyMiddleware(logger, thunk));
-console.log("store :: ", store);
-console.log("Before State :: ", store.getState());
+// console.log("store :: ", store);
+console.log(" State :: ", store.getState());
 
-ReactDOM.render(<App store={store} />, document.getElementById("root"));
+export const StoreContext = createContext();
+console.log("StoreContext ", StoreContext);
+
+class Provider extends React.Component {
+  render() {
+    const { store } = this.props;
+    return (
+      <StoreContext.Provider value={store}>
+        {this.props.children}
+      </StoreContext.Provider>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
