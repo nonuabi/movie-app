@@ -1,9 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import { addMovies, setShowFavourites } from "../actions";
-import { connect } from "../index";
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(addMovies(data));
@@ -23,7 +23,6 @@ class App extends React.Component {
   render() {
     const { movies, search } = this.props; // { movies:{}, search:{} }
     const { list, favourites, showFavourites } = movies;
-    console.log("render", this.props.store.getState());
     const displayMovies = showFavourites ? favourites : list;
 
     return (

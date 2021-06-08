@@ -1,11 +1,3 @@
-// {
-// type : 'ADD_MOVIES',
-// movies : [m1,m2,m3]
-// }
-// {
-// type : 'DECREASE_COUND',
-// }
-
 //action type
 export const ADD_MOVIES = "ADD_MOVIES";
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
@@ -50,14 +42,8 @@ export function addMovieToList(movie) {
 }
 
 export function handleMovieSearch(movie) {
-  const url = `http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;
-  // fetch(url)
-  //   .then((response) => response.json())
-  //   .then((movie) => {
-  //     console.log(movie);
-  //   });
-
   return function (dispatch) {
+    const url = `http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;
     fetch(url)
       .then((response) => response.json())
       .then((movie) => {
